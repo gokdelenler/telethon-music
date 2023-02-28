@@ -31,8 +31,8 @@ async def start_bot():
 loop = asyncio.get_event_loop()
 loop.run_until_complete(start_bot())
 
-print("[INFO]: SUCCESSFULLY STARTED BOT!")
-print("[INFO]: VISIT @TheUpdatesChannel")
+print("[INFO]: BOT BAŞARIYLA BAŞLATILDI ✓")
+print("[INFO]: @BioCasper ZİYARET ET 👻")
 
 if __name__ == "__main__":
     Zaid.run_until_disconnected()
