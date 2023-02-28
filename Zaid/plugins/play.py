@@ -25,10 +25,10 @@ from telethon.tl.functions.users import GetFullUserRequest
 from youtubesearchpython import VideosSearch
 
  
-fotoplay = "https://telegra.ph/file/b6402152be44d90836339.jpg"
-ngantri = "https://telegra.ph/file/b6402152be44d90836339.jpg"
+fotoplay = "https://telegra.ph//file/13579c6daeb8c156f407e.jpg"
+ngantri = "https://telegra.ph//file/13579c6daeb8c156f407e.jpg"
 from Zaid import call_py, Zaid, client as Client
-owner = "1669178360"
+owner = "1004520716"
 from Zaid.helpers.yt_dlp import bash
 from Zaid.helpers.chattitle import CHAT_TITLE
 from Zaid.helpers.queues import (
@@ -128,8 +128,8 @@ async def _(event):
      await event.delete()
 
 btnn =[
-    [Button.url("sᴜᴘᴘᴏʀᴛ ⚙️", url=f"t.me/{Config.SUPPORT}"), Button.url("cʜᴀɴɴᴇʟ 🇮🇳", url=f"t.me/{Config.CHANNEL}")],
-    [Button.inline("cʟᴏꜱᴇ 🗑️", data="cls")]]
+    [Button.url("Destek ⚙️", url=f"t.me/{Config.SUPPORT}"), Button.url("Kanal 👻", url=f"t.me/{Config.CHANNEL}")],
+    [Button.inline("Kapat 🗑️", data="cls")]]
 
 
 #play
@@ -151,14 +151,14 @@ async def play(event):
         or not replied
         and not title
     ):
-        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Give Me Your Query Which You want to Play**\n\n **Example**: `/play Nira Ishq Bass boosted`", buttons=btnn)
+        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Hangisini Çalmak İstediğinizi Bana Sorunuz**\n\n**Örnek :** ` /play Alessia Cara Scars To Your Beautiful`", buttons=btnn)
     elif replied and not replied.audio and not replied.voice or not replied:
-        botman = await event.reply("**🔄 Processing Query... Please Wait!**")
+        botman = await event.reply("**🔄 Sorgu işleniyor...\n👻 Lütfen Bekleyin !**")
         query = event.text.split(maxsplit=1)[1]
         search = ytsearch(query)
         if search == 0:
             await botman.edit(
-                "**Can't Find Song** Try searching with More Specific Title"
+                "**Şarkı Bulunamıyor ✘\nDaha Belirli Bir Başlıkla Aramayı Deneyin**"
             )     
         else:
             songname = search[0]
@@ -177,7 +177,7 @@ async def play(event):
                 await botman.edit(f"`{ytlink}`")
             elif chat_id in QUEUE:
                 pos = add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
-                caption = f"⌛ **Added to Queue at** #{pos}\n\n💡 **Title:** [{songname}]({url})\n**⏰ Duration:** `{duration}`\n👥 **Requested By:** {from_user}"
+                caption = f"⌛ **Numaralı Sıraya Eklendi** #{pos}\n\n💡 **Başlık:** [{songname}]({url})\n**⏰ Süre:** `{duration}`\n👥 **Talep Eden:** {from_user}"
                 await botman.delete()
                 await event.client.send_file(chat_id, thumb, caption=caption, buttons=btnn)
             else:
@@ -190,7 +190,7 @@ async def play(event):
                         stream_type=StreamType().pulse_stream,
                     )
                     add_to_queue(chat_id, songname, ytlink, url, "Audio", 0)
-                    caption = f"📡 **Started Streaming** 💡\n\n💡 **Title:** [{songname}]({url})\n**⏰ Duration:** `{duration}`\n👥 **Requested By:** {from_user}"
+                    caption = f"👻 **Yayın Başladı** 💡\n\n💡 **Başlık:** [{songname}]({url})\n**⏰ Süre:** `{duration}`\n👥 **Talep Eden:** {from_user}"
                     await botman.delete()
                     await event.client.send_file(chat_id, thumb, caption=caption, buttons=btnn)
                 except Exception as ep:
@@ -198,7 +198,7 @@ async def play(event):
                     await botman.edit(f"`{ep}`")
 
     else:
-        botman = await edit_or_reply(event, "➕ Downloading File...")
+        botman = await edit_or_reply(event, "📥 **Dosya İndiriliyor...**")
         dl = await replied.download_media()
         link = f"https://t.me/c/{chat.id}/{event.reply_to_msg_id}"
         if replied.audio:
@@ -207,7 +207,7 @@ async def play(event):
             songname = "Voice Note"
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
-            caption = f"⌛ **Added to Queue at** #{pos}\n\n**💡 Title:** [{songname}]({link})\n👥 **Requested By:** {from_user}"
+            caption = f"⌛ **Numaralı Sıraya Eklendi** #{pos}\n\n**💡 Başlık:** [{songname}]({link})\n👥 **Talep Eden:** {from_user}"
             await event.client.send_file(chat_id, ngantri, caption=caption, buttons=btnn)
             await botman.delete()
         else:
@@ -220,7 +220,7 @@ async def play(event):
                     stream_type=StreamType().pulse_stream,
                 )
                 add_to_queue(chat_id, songname, dl, link, "Audio", 0)
-                caption = f"📡 **Started Streaming** 💡\n\n💡 **Title:** [{songname}]({link})\n👥 **Requested By:** {from_user}"
+                caption = f"👻 **Yayın Başladı** 💡\n\n💡 **Başlık:** [{songname}]({link})\n👥 **Talep Eden:** {from_user}"
                 await event.client.send_file(chat_id, fotoplay, caption=caption, buttons=btnn)
                 await botman.delete()
             except Exception as ep:
@@ -240,11 +240,11 @@ async def vc_end(event, perm):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await event.reply("**Streaming Ended**")
+            await event.reply("**Yayın Durduruldu ✘**")
         except Exception as e:
             await event.reply(f"**ERROR:** `{e}`")
     else:
-        await event.reply("**Ntg is Streaming**")
+        await event.reply("**Aktif Yayın Yok ✘**")
 
 
 
@@ -254,7 +254,7 @@ async def vc_end(event, perm):
 @AssistantAdd
 async def vplay(event):
     if Config.HEROKU_MODE == "ENABLE":
-        await event.reply("__Currently Heroku Mode is ENABLED so You Can't Stream Video because Video Streaming Cause of Banning Your Heroku Account__.")
+        await event.reply("__Şu anda Heroku Modu ETKİNDİR, bu nedenle Video Akışı Yapamazsınız çünkü Video Akışı Heroku Hesabınızın Yasaklanmasının Nedenidir__.")
         return
     title = ' '.join(event.text[6:])
     replied = await event.get_reply_message()
@@ -275,14 +275,14 @@ async def vplay(event):
     ):
         return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Give Me Your Query Which You want to Stream**\n\n **Example**: `/vplay Nira Ishq Bass boosted`", buttons=btnn)
     if replied and not replied.video and not replied.document:
-        xnxx = await event.reply("**🔄 Processing Query... Please Wait!**")
+        xnxx = await event.reply("**🔄 Sorgu işleniyor...\n👻 Lütfen Bekleyin !**")
         query = event.text.split(maxsplit=1)[1]
         search = ytsearch(query)
         RESOLUSI = 720
         hmmm = HighQualityVideo()
         if search == 0:
             await xnxx.edit(
-                "**Give Me Valid Inputs**"
+                "**Bana Geçerli Sorgu Ver ✘**"
             )
         else:
             query = event.text.split(maxsplit=1)[1]
@@ -302,7 +302,7 @@ async def vplay(event):
             elif chat_id in QUEUE:
                 pos = add_to_queue(
                     chat_id, songname, ytlink, url, "Video", RESOLUSI)
-                caption = f"**⌛ Added to Queue at** #{pos}\n\n**💡 Title:** [{songname}]({url})\n**⏰ Duration:** `{duration}`\n👥 **Requested By:** {from_user}"
+                caption = f"**⌛ Numaralı Sıraya Eklendi** #{pos}\n\n**💡 Başlık:** [{songname}]({url})\n**⏰ Süre:** `{duration}`\n👥 **Talep Eden:** {from_user}"
                 await xnxx.delete()
                 await event.client.send_file(chat_id, thumb, caption=caption, buttons=btnn)
             else:
@@ -321,7 +321,7 @@ async def vplay(event):
                         RESOLUSI)
                     await xnxx.delete()
                     await event.client.send_file(event.chat_id,
-                        f"**📡 Started Streaming 💡**\n\n💡 **Title:** [{songname}]({url})\n**⏰ Duration:** `{duration}`\n👥 **Requested By:** {from_user}, buttons=btnn",
+                        f"👻 **Yayın Başladı** 💡\n\n💡 **Başlık:** [{songname}]({url})\n**⏰ Süre:** `{duration}`\n👥 **Talep Eden:** {from_user}, buttons=btnn",
                         link_preview=False,
                     )
                 except Exception as ep:
@@ -329,7 +329,7 @@ async def vplay(event):
                     await xnxx.edit(f"`{ep}`")
 
     elif replied:
-        xnxx = await event.reply("➕ **Downloading Replied File**")
+        xnxx = await event.reply("📥 **Dosya İndiriliyor...**")
         dl = await replied.download_media()
         link = f"https://t.me/c/{chat.id}/{event.reply_to_msg_id}"
         if len(event.text.split()) < 2:
@@ -341,7 +341,7 @@ async def vplay(event):
             songname = "Telegram Video Player"
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, link, "Video", RESOLUSI)
-            caption = f"**⌛ Added to Queue at** #{pos}\n\n**💡 Title:** [{songname}]({link})\n👥 **Requested By:** {from_user}"
+            caption = f"**⌛ Numaralı Sıraya Eklendi** #{pos}\n\n**💡 Başlık:** [{songname}]({link})\n👥 **Talep Eden:** {from_user}"
             await event.client.send_file(chat_id, ngantri, caption=caption, buttons=btnn)
             await xnxx.delete()
         else:
@@ -358,20 +358,20 @@ async def vplay(event):
                     stream_type=StreamType().pulse_stream,
                 )
                 add_to_queue(chat_id, songname, dl, link, "Video", RESOLUSI)
-                caption = f"**📡 Started Streaming 💡**\n\n💡 **Title:** [{songname}]({link})\n👥 **Requested By:** {from_user}"
+                caption = f"**📡 Yayın Başladı 💡**\n\n💡 **Başlık:** [{songname}]({link})\n👥 **Talep Eden:** {from_user}"
                 await xnxx.delete()
                 await event.client.send_file(chat_id, fotoplay, caption=caption, buttons=btnn)
             except Exception as ep:
                 clear_queue(chat_id)
                 await xnxx.edit(f"`{ep}`")
     else:
-        xnxx = await event.reply("**🔄 Processing Query... Please Wait!**")
+        xnxx = await event.reply("**🔄 Sorgu işleniyor...\n👻 Lütfen Bekleyin !**")
         query = event.text.split(maxsplit=1)[1]
         search = ytsearch(query)
         RESOLUSI = 720
         hmmm = HighQualityVideo()
         if search == 0:
-            await xnxx.edit("**Unable To featch your Query**")
+            await xnxx.edit("**Sorgu Getirilmiyor ✘**")
         else:
             songname = search[0]
             title = search[0]
@@ -388,7 +388,7 @@ async def vplay(event):
             elif chat_id in QUEUE:
                 pos = add_to_queue(
                     chat_id, songname, ytlink, url, "Video", RESOLUSI)
-                caption = f"**⌛ Added to Queue at** #{pos}\n\n💡 **Title:** [{songname}]({url})\n**⏰ Duration:** `{duration}`\n👥 **Requested By:** {from_user}"
+                caption = f"**⌛ Numaralı Sıraya Eklendi** #{pos}\n\n💡 **Başlık:** [{songname}]({url})\n**⏰ Süre:** `{duration}`\n👥 **Talep Eden:** {from_user}"
                 await xnxx.delete()
                 await event.client.send_file(chat_id, thumb, caption=caption, buttons=btnn)
             else:
@@ -405,7 +405,7 @@ async def vplay(event):
                         url,
                         "Video",
                         RESOLUSI)
-                    caption = f"**📡 Started Streaming 💡**\n\n🎥 **Title:** [{songname}]({url})\n**⏰ Duration:** `{duration}`\n🎧 **Requested By:** {from_user}"
+                    caption = f"**👻 Yayın Başladı 💡**\n\n🎥 **Başlık:** [{songname}]({url})\n**⏰ Süre:** `{duration}`\n🎧 **Talep Eden:** {from_user}"
                     await xnxx.delete()
                     await event.client.send_file(chat_id, thumb, caption=caption, buttons=btnn)
                 except Exception as ep:
@@ -424,11 +424,11 @@ async def vc_playlist(event, perm):
         chat_queue = get_queue(chat_id)
         if len(chat_queue) == 1:
             await event.reply(
-                f"**�PlAYLIST:**\n• [{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}`",
+                f"**🎶 Oynatma Listesi:**\n• [{chat_queue[0][0]}]({chat_queue[0][2]}) | `{chat_queue[0][3]}`",
                 link_preview=False,
             )
         else:
-            PLAYLIST = f"**🎧 PLAYLIST:**\n**• [{chat_queue[0][0]}]({chat_queue[0][2]})** | `{chat_queue[0][3]}` \n\n**• Upcoming Streaming:**"
+            PLAYLIST = f"**🎧 Oynatma Listesi:**\n**• [{chat_queue[0][0]}]({chat_queue[0][2]})** | `{chat_queue[0][3]}` \n\n**• Yaklaşan Akış:**"
             l = len(chat_queue)
             for x in range(1, l):
                 hmm = chat_queue[x][0]
@@ -438,7 +438,7 @@ async def vc_playlist(event, perm):
                     f"**#{x}** - [{hmm}]({hmmm}) | `{hmmmm}`"
             await event.reply(PLAYLIST, link_preview=False)
     else:
-        await event.reply("**Ntg is Streaming**")
+        await event.reply("**Aktif Yayın Yok ✘**")
 
 
 
@@ -449,7 +449,7 @@ async def vc_playlist(event, perm):
 @Zaid.on(events.NewMessage(pattern="^[?!/]leavevc"))
 @is_admin
 async def leavevc(event, perm):
-    xnxx = await event.reply("Processing")
+    xnxx = await event.reply("**İşleniyor...**")
     chat_id = event.chat_id
     from_user = vcmention(event.sender)
     if from_user:
@@ -457,9 +457,9 @@ async def leavevc(event, perm):
             await call_py.leave_group_call(chat_id)
         except (NotInGroupCallError, NoActiveGroupCall):
             pass
-        await xnxx.edit("**Left the voice chat** `{}`".format(str(event.chat_id)))
+        await xnxx.edit("**Sesli sohbetten ayrıldı** `{}`".format(str(event.chat_id)))
     else:
-        await xnxx.edit(f"**Sorry {owner} not on Voice Chat**")
+        await xnxx.edit(f"**Maalesef {owner} Sesli Sohbette değil**")
 
 
 
@@ -470,17 +470,17 @@ async def vc_skip(event, perm):
     if len(event.text.split()) < 2:
         op = await skip_current_song(chat_id)
         if op == 0:
-            await event.reply("**Nothing Is Streaming**")
+            await event.reply("**Aktif Yayın Yok ✘**")
         elif op == 1:
-            await event.reply("empty queue, leave voice chat", 10)
+            await event.reply("**Sıra boş ✘\nSesli sohbetten ayrıldı ✘**", 10)
         else:
             await event.reply(
-                f"**⏭ Skipped**\n**🎧 Now Playing** - [{op[0]}]({op[1]})",
+                f"**⏭ Atlandı**\n**🎧 Şu Anda Oynatılıyor** - [{op[0]}]({op[1]})",
                 link_preview=False,
             )
     else:
         skip = event.text.split(maxsplit=1)[1]
-        DELQUE = "**Removing Following Songs From Queue:**"
+        DELQUE = "**Aşağıdaki Şarkıları Kuyruktan Kaldırma:**"
         if chat_id in QUEUE:
             items = [int(x) for x in skip.split(" ") if x.isdigit()]
             items.sort(reverse=True)
@@ -499,11 +499,11 @@ async def vc_pause(event, perm):
     if chat_id in QUEUE:
         try:
             await call_py.pause_stream(chat_id)
-            await event.reply("**Streaming Paused**")
+            await event.reply("**Yayın Durduruldu ✘**")
         except Exception as e:
             await event.reply(f"**ERROR:** `{e}`")
     else:
-        await event.reply("**Nothing Is Playing**")
+        await event.reply("**Aktif Yayın Yok ✘**")
 
 
 
@@ -514,11 +514,11 @@ async def vc_resume(event, perm):
     if chat_id in QUEUE:
         try:
             await call_py.resume_stream(chat_id)
-            await event.reply("**Streaming Started Back 🔙**")
+            await event.reply("**Yayın Geri Başlatıldı 🔙**")
         except Exception as e:
             await event.reply(f"**ERROR:** `{e}`")
     else:
-        await event.reply("**Nothing Is Streaming**")
+        await event.reply("**Aktif Yayın Yok ✘**")
 
 
 @call_py.on_stream_end()
