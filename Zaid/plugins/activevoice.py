@@ -25,7 +25,7 @@ async def activevc(message):
             text += f"{j + 1}. {title} [`{x}`]\n"
         j += 1
     if not text:
-        await mystic.edit("No Active Voice Chats")
+        await mystic.edit("**Aktif Sesli Sohbet Yok ✘**")
     else:
         await mystic.edit(
             f"**Active Voice Chats:-**\n\n{text}"
