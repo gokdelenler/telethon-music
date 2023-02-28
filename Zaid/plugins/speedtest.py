@@ -21,20 +21,20 @@ def testspeed(m):
 
 @Zaid.on(events.NewMessage(pattern="^/speedtest"))
 async def speedtest_function(message):
-    m = await message.reply("Running Speed test")
+    m = await message.reply("**Hız Testi Yapılıyor...**")
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(None, testspeed, m)
-    output = f"""**Speedtest Results**
+    output = f"""**Hız Testi Sonuçları**
     
-<u>**Client:**</u>
-**__ISP:__** {result['client']['isp']}
-**__Country:__** {result['client']['country']}
+**Müşteri:**
+**ISP:** {result['client']['isp']}
+**Ülke:** {result['client']['country']}
   
-<u>**Server:**</u>
-**__Name:__** {result['server']['name']}
-**__Country:__** {result['server']['country']}, {result['server']['cc']}
-**__Sponsor:__** {result['server']['sponsor']}
-**__Latency:__** {result['server']['latency']}  
-**__Ping:__** {result['ping']}"""
+**Sunucu:**
+**İsim:** {result['server']['name']}
+**Ülke:** {result['server']['country']}, {result['server']['cc']}
+**Sponsor:** {result['server']['sponsor']}
+**Gecikme:** {result['server']['latency']}  
+**Ping:** {result['ping']}"""
     await Zaid.send_file(message.chat.id, result["share"], caption=output)
     await m.delete()
