@@ -22,16 +22,16 @@ from Zaid.status import *
 @is_admin
 async def _(e, perm):
     chat_id = e.chat_id
-    usage = "𝗠𝗼𝗱𝘂𝗹𝗲 𝗡𝗮𝗺𝗲 = 𝗝𝗼𝗶𝗻\n\nCommand:\n\n/join <Group Link/Username> if your Group is private then use !pjoin <Chat link>"
+    usage = "**Modül ismi = join**\n**Komut:**\n`/join <Grup Bağlantısı/Kullanıcı Adı>`\n**Grubunuz özelse** `!pjoin <Sohbet bağlantısı>`"
     if e.is_group:
         umm = ("".join(e.text.split(maxsplit=1)[1:])).split(" ", 1)
         if len(e.text) > 6:
             bc = umm[0]
-            text = "Joining..."
+            text = "**Katılıyor...**"
             event = await e.reply(text, parse_mode=None, link_preview=None )
             try:
                 await client(functions.channels.JoinChannelRequest(channel=bc))
-                await event.edit("Succesfully Joined if not joined Use !pjoin and your group link")
+                await event.edit("**Başarıyla Katıldı ✓\nKatılmadıysa !pjoin'i ve grup bağlantınızı kullanın**")
             except Exception as e:
                 await event.edit(str(e))   
         else:
@@ -42,16 +42,16 @@ async def _(e, perm):
 @is_admin        
 async def _(e, perm):
     chat_id = e.chat_id
-    usage = "𝗠𝗼𝗱𝘂𝗹𝗲 𝗡𝗮𝗺𝗲 = 𝗣𝗿𝗶𝘃𝗮𝘁𝗲 𝗝𝗼𝗶𝗻\n\nCommand:\n\n!pjoin <Private Channel or Group's access hash>\n\nExample :\nLink = https://t.me/joinchat/Ihsvig1907226#\n\n!pjoin Ihsvig1907226"
+    usage = "**Modül İsmi = pjoin\nKomut:**\n`!pjoin <özel kanal veya grubun davet bağlantısı>`\n**Örnek:\nLink =** `https://t.me/joinchat/Ihsvig1907226#`\n`!pjoin Ihsvig1907226`"
     if e.is_group:
         umm = ("".join(e.text.split(maxsplit=1)[1:])).split(" ", 1)
         if len(e.text) > 7:
             invitelink = umm[0]
-            text = "Joining...."
+            text = "**Katılıyor...**"
             event = await e.reply(text, parse_mode=None, link_preview=None )
             try:
                 await client(ImportChatInviteRequest(invitelink))
-                await event.edit("Succesfully Joined")
+                await event.edit("**Başarıyla Katıldı ✓**")
             except Exception as e:
                 await event.edit(str(e))   
         else:
