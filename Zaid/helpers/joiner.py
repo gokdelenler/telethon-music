@@ -35,13 +35,13 @@ def AssistantAdd(mystic):
                     )
                     await client(ImportChatInviteRequest(invitelink))
                     await event.reply(
-                        f"Joined Successfully",
+                        f"**Başarıyla Katıldı ✓**",
                     )
                 except UserAlreadyParticipantError:
                     pass
                 except Exception as e:
                     await event.reply(
-                        f"__Assistant Failed To Join__\n\n**Reason**: {e}"
+                        f"**Asistan Katılamadı ✘\n\n Sebep:** {e}"
                     )
                     return
         return await mystic(event)
