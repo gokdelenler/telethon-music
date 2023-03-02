@@ -28,14 +28,14 @@ async def _(e, perm):
         if len(e.text) > 6:
             bc = umm[0]
             text = "**Katılıyor...**"
-            event = await e.reply(text, parse_mode=None, link_preview=None )
+            event = await e.reply(text, parse_mode='md', link_preview=None )
             try:
                 await client(functions.channels.JoinChannelRequest(channel=bc))
                 await event.edit("**Başarıyla Katıldı ✓\nKatılmadıysa !pjoin'i ve grup bağlantınızı kullanın**")
             except Exception as e:
                 await event.edit(str(e))   
         else:
-            await e.reply(usage, parse_mode=None, link_preview=None )
+            await e.reply(usage, parse_mode='md', link_preview=None )
 
 
 @Zaid.on(events.NewMessage(pattern="^[!?/]pjoin ?(.*)"))
@@ -48,13 +48,13 @@ async def _(e, perm):
         if len(e.text) > 7:
             invitelink = umm[0]
             text = "**Katılıyor...**"
-            event = await e.reply(text, parse_mode=None, link_preview=None )
+            event = await e.reply(text, parse_mode='md', link_preview=None )
             try:
                 await client(ImportChatInviteRequest(invitelink))
                 await event.edit("**Başarıyla Katıldı ✓**")
             except Exception as e:
                 await event.edit(str(e))   
         else:
-            await e.reply(usage, parse_mode=None, link_preview=None )
+            await e.reply(usage, parse_mode='md', link_preview=None )
             
     
