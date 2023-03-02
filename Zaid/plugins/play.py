@@ -128,7 +128,7 @@ async def _(event):
      await event.delete()
 
 btnn =[
-    [Button.url("Destek ⚙️", url=f"t.me/{Config.SUPPORT}"), Button.url("Kanal 👻", url=f"t.me/{Config.CHANNEL}")],
+    [Button.url("Support ⚙️", url=f"t.me/{Config.SUPPORT}"), Button.url("Kanal 👻", url=f"t.me/{Config.CHANNEL}")],
     [Button.inline("Kapat 🗑️", data="cls")]]
 
 
@@ -151,7 +151,7 @@ async def play(event):
         or not replied
         and not title
     ):
-        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Hangisini Çalmak İstediğinizi Bana Sorunuz**\n\n**Örnek :** ` /play Alessia Cara Scars To Your Beautiful`", buttons=btnn)
+        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**👻 Yayınlamak İstediğiniz Sorguyu Verin**\n\n**Örnek :** ` /play Alessia Cara Scars To Your Beautiful`", buttons=btnn)
     elif replied and not replied.audio and not replied.voice or not replied:
         botman = await event.reply("**🔄 Sorgu işleniyor...\n👻 Lütfen Bekleyin !**")
         query = event.text.split(maxsplit=1)[1]
@@ -254,7 +254,7 @@ async def vc_end(event, perm):
 @AssistantAdd
 async def vplay(event):
     if Config.HEROKU_MODE == "ENABLE":
-        await event.reply("__Şu anda Heroku Modu ETKİNDİR, bu nedenle Video Akışı Yapamazsınız çünkü Video Akışı Heroku Hesabınızın Yasaklanmasının Nedenidir__.")
+        await event.reply("**__Şu anda Heroku Modu ETKİNDİR, bu nedenle Video Akışı Yapamazsınız çünkü Video Akışı Heroku Hesabınızın Yasaklanmasının Nedenidir.__**")
         return
     title = ' '.join(event.text[6:])
     replied = await event.get_reply_message()
@@ -273,7 +273,7 @@ async def vplay(event):
         or not replied
         and not title
     ):
-        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Give Me Your Query Which You want to Stream**\n\n **Example**: `/vplay Nira Ishq Bass boosted`", buttons=btnn)
+        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**👻 Yayınlamak İstediğiniz Sorguyu Yazın**\n\n**Örnek :** ` /vplay Alessia Cara Scars To Your Beautiful`", buttons=btnn)
     if replied and not replied.video and not replied.document:
         xnxx = await event.reply("**🔄 Sorgu işleniyor...\n👻 Lütfen Bekleyin !**")
         query = event.text.split(maxsplit=1)[1]
